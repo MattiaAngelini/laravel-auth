@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware(['auth', 'verified'])
 ->group(function() {
     // ROTTE DI AMMINISTRAZIONE
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('projects', ProjectController::class);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

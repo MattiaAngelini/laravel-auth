@@ -11,6 +11,7 @@
                 <th>Slug</th>
                 <th>Created at</th>
                 <th>Actions</th>
+            
             </tr>
         </thead>
 
@@ -23,7 +24,13 @@
                     <td>{{ $project->created_at }}</td>
                     <td>
                         <div>
-                            <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">View</a>
+                            <button><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">View</a></button>
+                            <button><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Modifica</a></button>
+                            <form action="{{route('admin.projects.destroy',['project' => $project->id])}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mt-2">ELIMINA</button>
+                              </form>
                         </div>
                     </td>
                 </tr>

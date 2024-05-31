@@ -17,27 +17,16 @@
             <form action="{{ route('admin.projects.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label for="title" class="form-label">Titolo</label>
-                  <input type="text" class="form-control" id="title" name="title">
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="series" class="form-label">Slug</label>
-                    <input type="text" class="form-control" id="series" name="series">
+                  <label for="name class="form-label">Nome Progetto</label>
+                  <input type="text" class="form-control" id="name" name="name">
                 </div>
 
                 <div class="mb-3">
-                    <label for="sale_date" class="form-label">Data di creazione</label>
-                    <input type="date" class="form-control" id="sale_date" name="sale_date">
+                    <label for="summary" class="form-label">Sommario</label>
+                    <textarea class="form-control" id="summary" rows="20" name="summary"></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="description" class="form-label">Sommarioi</label>
-                    <textarea class="form-control" id="description" rows="5" name="description"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">SALVA PROGETTO</button>
             </form>
 
         

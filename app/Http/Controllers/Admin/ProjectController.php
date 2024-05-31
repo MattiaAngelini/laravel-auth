@@ -68,7 +68,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $Project)
+    public function edit(Project $project)
     {
 
         return view('admin.projects.edit', compact('project'));
@@ -82,9 +82,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Project $project)
     {
-      
+        $formData = $request->all();
+        $project->slug = Str::slug($formData['name'], '-');
+        $project->update($formData);
+
+        return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
 
     /**

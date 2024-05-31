@@ -59,6 +59,12 @@
                                     <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> All Projects
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ true == 'admin.dashboard' ? 'bg-secondary' : '' }}" href="{{ route('admin.projects.create')}}">
+                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> + Nuovo Progetto
+                                </a>
+                            </li>
                         </ul>
 
 

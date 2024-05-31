@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -17,8 +18,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
-        
+        return view('admin.projects.index', compact('projects'));       
     }
 
     /**
@@ -39,15 +39,27 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validated = $request->validate(
+            [
+                'name' => 'required|min:5|max:150|unique:projects,name',
+                'summary' => 'nullable|min:10'
+            ],
+
+            [   'name.required' => 'Il campo titolo è obbligatorio',
+                'name.max' => 'Il campo titolo non può avere più di 50 caratteri',
+                'name.min' => 'Il campo titolo deve avere almeno 5 caratteri',
+                'summary.min' => 'Il campo Descrizione deve avere almeno 5 caratteri',
+            ]         
+        );
+
         $formData = $request->all();
 
-            $newProject = new Project();
-            $newProject->fill($formData);
-            $newProject->slug = Str::slug($newProject->name, '-');          
-            $newProject->save();
-            return redirect()->route('admin.projects.show', ['project' => $newProject->id]);
-          
-     
+        $newProject = new Project();
+        $newProject->fill($formData);
+        $newProject->slug = Str::slug($newProject->name, '-');          
+        $newProject->save();
+        return redirect()->route('admin.projects.show', ['project' => $newProject->id]);
     }
 
     /**
@@ -70,9 +82,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-
-        return view('admin.projects.edit', compact('project'));
-        
+        return view('admin.projects.edit', compact('project'));   
     }
 
     /**
@@ -84,6 +94,24 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+
+        $validated = $request->validate(
+            [
+                'name' => [
+                    'required',
+                    'min:5',
+                    'max:150',
+                    Rule::unique('projects')->ignore($project)
+                ],
+                'summary' => 'nullable|min:5'
+            ],
+            [   'name.required' => 'Il campo titolo è obbligatorio',
+                'name.max' => 'Il campo titolo non può avere più di 50 caratteri',
+                'name.min' => 'Il campo titolo deve avere almeno 5 caratteri',
+                'summary.min' => 'Il campo Descrizione deve avere almeno 5 caratteri',
+            ]
+        );
+    
         $formData = $request->all();
         $project->slug = Str::slug($formData['name'], '-');
         $project->update($formData);

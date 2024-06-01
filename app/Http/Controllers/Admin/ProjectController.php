@@ -49,7 +49,7 @@ class ProjectController extends Controller
             [   'name.required' => 'Il campo titolo è obbligatorio',
                 'name.max' => 'Il campo titolo non può avere più di 50 caratteri',
                 'name.min' => 'Il campo titolo deve avere almeno 5 caratteri',
-                'summary.min' => 'Il campo Descrizione deve avere almeno 5 caratteri',
+                'summary.min' => 'Il campo Descrizione deve avere almeno 10 caratteri',
             ]         
         );
 
@@ -103,12 +103,12 @@ class ProjectController extends Controller
                     'max:150',
                     Rule::unique('projects')->ignore($project)
                 ],
-                'summary' => 'nullable|min:5'
+                'summary' => 'nullable|min:10'
             ],
             [   'name.required' => 'Il campo titolo è obbligatorio',
                 'name.max' => 'Il campo titolo non può avere più di 50 caratteri',
                 'name.min' => 'Il campo titolo deve avere almeno 5 caratteri',
-                'summary.min' => 'Il campo Descrizione deve avere almeno 5 caratteri',
+                'summary.min' => 'Il campo Descrizione deve avere almeno 10 caratteri',
             ]
         );
     

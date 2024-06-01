@@ -29,7 +29,7 @@
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <input id="searchbar-projects" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap ms-2">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -49,20 +49,20 @@
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link text-white {{ true == 'admin.dashboard' ? 'bg-secondary' : '' }}" href="{{ route('admin.dashboard')}}">
-                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Dashboard
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.dashboard' ? 'bg-primary' : '' }}" href="{{ route('admin.dashboard')}}">
+                                    <i class="fas fa-user m-1"></i> Dashboard
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white {{ true == 'admin.dashboard' ? 'bg-secondary' : '' }}" href="{{ route('admin.projects.index')}}">
-                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> All Projects
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.projects.index' ? 'bg-primary' : '' }}" href="{{ route('admin.projects.index')}}">
+                                    <i class="fas fa-folder m-1"></i> All Projects
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white {{ true == 'admin.dashboard' ? 'bg-secondary' : '' }}" href="{{ route('admin.projects.create')}}">
-                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> + Nuovo Progetto
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.projects.create' ? 'bg-primary' : '' }}" href="{{ route('admin.projects.create')}}">
+                                    <i class="fas fa-plus m-1"></i> New Project
                                 </a>
                             </li>
                         </ul>

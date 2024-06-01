@@ -21,8 +21,8 @@
                     
 
                     <div>
-                        <h1>Benvenuto {{$userInfo->name}}</h1>
-                        <div>La tua mail: {{$userInfo->email}}</div>
+                        <h1>Welcome {{$userInfo->name}}</h1>
+                        <div>Your registered email is: <strong>{{$userInfo->email}}</strong></div>
                     </div>
                 </div>
             </div>

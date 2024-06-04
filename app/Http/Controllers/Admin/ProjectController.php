@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -38,12 +39,14 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        // dd($request->all());
 
         $validated = $request->validate(
             [
                 'name' => 'required|min:5|max:150|unique:projects,name',
-                'summary' => 'nullable|min:10'
+                'summary' => 'nullable|min:10',
+                'cover_image' => 'nullable|image|max:256'
             ],
 
             [   'name.required' => 'Il campo titolo è obbligatorio',
@@ -54,11 +57,18 @@ class ProjectController extends Controller
         );
 
         $formData = $request->all();
+      
+        //Salviamo immagine nel db solo se esiste cover_image
+        if($request->hasFile('cover_image')) {       
+            $img_path = Storage::disk('public')->put('project_images', $formData['cover_image']);         
+            $formData['cover_image'] = $img_path;
+        }
 
         $newProject = new Project();
         $newProject->fill($formData);
         $newProject->slug = Str::slug($newProject->name, '-');          
         $newProject->save();
+     
         return redirect()->route('admin.projects.show', ['project' => $newProject->id]);
     }
 
@@ -103,7 +113,8 @@ class ProjectController extends Controller
                     'max:150',
                     Rule::unique('projects')->ignore($project)
                 ],
-                'summary' => 'nullable|min:10'
+                'summary' => 'nullable|min:10',
+                'cover_image' => 'nullable|image|max:256'
             ],
             [   'name.required' => 'Il campo titolo è obbligatorio',
                 'name.max' => 'Il campo titolo non può avere più di 50 caratteri',
@@ -113,6 +124,17 @@ class ProjectController extends Controller
         );
     
         $formData = $request->all();
+        if($request->hasFile('cover_image')) {
+            // Se avevo già un'immagine caricata la cancello
+            if($project->cover_image) {
+                Storage::delete($project->cover_image);
+            }
+
+            // Upload del file nella cartella pubblica
+            $img_path = Storage::disk('public')->put('post_images', $formData['cover_image']);
+            // Salvare nella colonna cover_image del db il path all'immagine caricata
+            $formData['cover_image'] = $img_path;
+        }
         $project->slug = Str::slug($formData['name'], '-');
         $project->update($formData);
 

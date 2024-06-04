@@ -13,7 +13,7 @@
         </div>
     @endif
     
-    <form enctype= "multipart/form-data" action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="POST">
+    <form enctype="multipart/form-data" action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -31,6 +31,14 @@
             <label for="cover_image" class="form-label">Image</label>
             <input class="form-control" type="file" name="cover_image"></textarea>
         </div>
+
+        @if ($project->cover_image)
+        <div>
+            <img width="100" src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
+        </div>
+        @else
+            <small>Nessuna immagine caricata</small>
+        @endif
 
         <button type="submit" class="btn btn-primary">EDIT</button>
     </form>

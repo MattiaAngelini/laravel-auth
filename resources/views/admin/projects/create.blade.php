@@ -26,6 +26,11 @@
                     <textarea class="form-control" id="summary" rows="10" name="summary"></textarea>
                 </div>
 
+                <div class="mb-3">
+                    <label for="cover_image" class="form-label">Image</label>
+                    <input class="form-control" type="file" name="cover_image"></textarea>
+                </div>
+
                 <button type="submit" class="btn btn-primary">SAVE NEW PROJECT</button>
             </form>
 

@@ -65,6 +65,7 @@
                                     <i class="fas fa-plus m-1"></i> New Project
                                 </a>
                             </li>
+                            
                         </ul>
 
 
